@@ -4,7 +4,6 @@ import {
 } from 'semantic-ui-react';
 import * as d3 from 'd3';
 import axios from 'axios';
-import Chart from './chart'
 
 import { connect } from 'react-redux';
 
@@ -16,10 +15,6 @@ class Home extends Component {
             loading: false
         };
     }
-
-    // componentDidMount = () => {
-    //     this.setState({ loading: false });
-    // }
 
     handleChange = e => {
         let { name, value } = e.target;
