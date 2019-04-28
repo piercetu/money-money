@@ -4,16 +4,29 @@ import {
 } from 'semantic-ui-react';
 import * as d3 from 'd3';
 import axios from 'axios';
-
+import Splash from './Splash'
 import { connect } from 'react-redux';
+import logo from './money.png'
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
             ticker: '',
-            loading: false
+            loading: false,
+            splash: true,
+            timePassed: false
         };
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setTimePassed();
+        }, 3000);
+    }
+
+    setTimePassed() {
+        this.setState({ timePassed: true });
     }
 
     handleChange = e => {
@@ -22,7 +35,10 @@ class Home extends Component {
     }
 
     handleFocus = () => {
-        this.setState({ loading: true });
+        this.setState({
+            loading: true,
+            splash: false
+        });
     }
 
     handleBlur = () => {
@@ -60,7 +76,7 @@ class Home extends Component {
     }
 
     drawChart = data => {
-        var svgWidth = 600, svgHeight = 400;
+        var svgWidth = 800, svgHeight = 800;
         var margin = { top: 20, right: 20, bottom: 30, left: 50 };
         var width = svgWidth - margin.left - margin.right;
         var height = svgHeight - margin.top - margin.bottom;
@@ -112,36 +128,45 @@ class Home extends Component {
     }
 
     render() {
-        return (
-            <React.Fragment>
-                <Grid columns={1} className="center aligned">
-                    <Grid.Row>
-                        <Grid.Column>
-                            <div class="ui input">
-                                <input type="text"
-                                    name="ticker"
-                                    value={this.state.ticker}
-                                    onChange={this.handleChange}
-                                    onFocus={this.handleFocus}
-                                    onBlur={this.handleBlur}
-                                    placeholder="Enter Ticker Symbol" />
-                            </div>
-                            <Button animated onClick={this.handleSubmit}>
-                                <Button.Content visible>Predict</Button.Content>
-                                <Button.Content hidden>
-                                    <Icon name='random' />
-                                </Button.Content>
-                            </Button>
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column>
-                            {this.state.loading ? <div class="ui active centered inline loader"></div> : <svg></svg>}
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            </React.Fragment>
-        );
+        if (!this.state.timePassed) {
+            // return <Splash />
+            return (
+                <div style={{ textAlign: 'center' }}>
+                    <img src={logo} alt="Logo"></img>
+                </div >
+            );
+        } else {
+            return (
+                <React.Fragment>
+                    <Grid columns={1} className="center aligned">
+                        <Grid.Row>
+                            <Grid.Column>
+                                <div class="ui input">
+                                    <input type="text"
+                                        name="ticker"
+                                        value={this.state.ticker}
+                                        onChange={this.handleChange}
+                                        onFocus={this.handleFocus}
+                                        onBlur={this.handleBlur}
+                                        placeholder="Enter Ticker Symbol" />
+                                </div>
+                                <Button animated onClick={this.handleSubmit}>
+                                    <Button.Content visible>Predict</Button.Content>
+                                    <Button.Content hidden>
+                                        <Icon name='random' />
+                                    </Button.Content>
+                                </Button>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                {this.state.loading ? <div class="ui active centered inline loader"></div> : <svg></svg>}
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </React.Fragment>
+            );
+        }
     }
 }
 
