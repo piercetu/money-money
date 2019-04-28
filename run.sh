@@ -1,0 +1,1 @@
+./run-client.sh & ./run-server.sh
