@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { 
-    Button, Icon, Grid 
+import {
+    Button, Icon, Grid
 } from 'semantic-ui-react';
 import * as d3 from 'd3';
 import axios from 'axios';
+import Chart from './chart'
 
 import { connect } from 'react-redux';
 
@@ -11,17 +12,31 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ticker: ''
+            ticker: '',
+            loading: false
         };
     }
+
+    // componentDidMount = () => {
+    //     this.setState({ loading: false });
+    // }
 
     handleChange = e => {
         let { name, value } = e.target;
         this.setState({ [name]: String(value).trim().toUpperCase() });
     }
 
+    handleFocus = () => {
+        this.setState({ loading: true });
+    }
+
+    handleBlur = () => {
+        this.setState({ loading: false });
+    }
+
     handleSubmit = () => {
         let { ticker } = this.state;
+        this.setState({ loading: false });
 
         axios.post('https://gainful-app.herokuapp.com/lasso/predict/', { ticker })
             .then(res => {
@@ -31,7 +46,7 @@ class Home extends Component {
                     let dataArr = [];
                     let lastValue = 0;
 
-                    Object.keys(data).map((v,i) => {
+                    Object.keys(data).map((v, i) => {
                         let date = new Date(v);
                         let value = data[v];
 
@@ -62,25 +77,25 @@ class Home extends Component {
         svg.attr("height", svgHeight);
 
         var g = svg.append("g")
-                    .attr("transform", 
-                    "translate(" + margin.left + "," + margin.top + ")"
-                    );
-        
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")"
+            );
+
         var x = d3.scaleTime().rangeRound([0, width]);
         var y = d3.scaleLinear().rangeRound([height, 0]);
-        
+
         var line = d3.line()
-                    .x(d => x(d.date))
-                    .y(d => y(d.value))
-                    x.domain(d3.extent(data, d => d.date ));
-                    y.domain(d3.extent(data, d => d.value ));
-        
+            .x(d => x(d.date))
+            .y(d => y(d.value))
+        x.domain(d3.extent(data, d => d.date));
+        y.domain(d3.extent(data, d => d.value));
+
         g.append("g")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
             .select(".domain")
             .remove();
-        
+
         g.append("g")
             .call(d3.axisLeft(y))
             .append("text")
@@ -90,7 +105,7 @@ class Home extends Component {
             .attr("dy", "0.71em")
             .attr("text-anchor", "end")
             .text("Price ($)");
-        
+
         g.append("path")
             .datum(data)
             .attr("fill", "none")
@@ -107,7 +122,15 @@ class Home extends Component {
                 <Grid columns={1} className="center aligned">
                     <Grid.Row>
                         <Grid.Column>
-                            <div class="ui input"><input type="text" name="ticker" value={this.state.ticker} onChange={this.handleChange} placeholder="Enter Ticker Symbol"/></div>
+                            <div class="ui input">
+                                <input type="text"
+                                    name="ticker"
+                                    value={this.state.ticker}
+                                    onChange={this.handleChange}
+                                    onFocus={this.handleFocus}
+                                    onBlur={this.handleBlur}
+                                    placeholder="Enter Ticker Symbol" />
+                            </div>
                             <Button animated onClick={this.handleSubmit}>
                                 <Button.Content visible>Predict</Button.Content>
                                 <Button.Content hidden>
@@ -118,7 +141,7 @@ class Home extends Component {
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            <svg style={{ border: '1px solid lightgray' }}></svg>
+                            {this.state.loading ? <div class="ui active centered inline loader"></div> : <svg></svg>}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -127,4 +150,4 @@ class Home extends Component {
     }
 }
 
-export default connect(null,null)(Home);
+export default connect(null, null)(Home);
