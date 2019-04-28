@@ -1,2 +1,2 @@
-# gainful
-Gainful is an app to help you manage your portfolio and recommend you new ventures
+# money-money
+San Jose Hacks 2019. Economically empowering the homeless through machine learning powered stock predictions.
