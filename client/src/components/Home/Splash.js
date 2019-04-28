@@ -1,4 +1,4 @@
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+{/* <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 411 520" style="enable-background:new 0 0 411 520;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:none;stroke:#FFFFFF;stroke-width:3;stroke-miterlimit:10;}
@@ -125,4 +125,4 @@
 		c0.3-1.9,1.1-3.4,2.6-4.5c1.5-1.1,3.1-1.7,5-1.7c2.1,0,3.9,0.8,5.3,2.3c1.4,1.5,2.1,3.2,2.1,5.1c0,0.7-0.1,1.4-0.4,2.1
 		C359.5,362,359.3,362.7,359.2,363.2z"/>
 </g>
-</svg>
+</svg> */}

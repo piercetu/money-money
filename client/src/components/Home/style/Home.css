@@ -1,0 +1,11 @@
+.ui {
+    /* margin-top: 100px; */
+    top: 70vh;
+}
+
+.graph {
+    margin-top: 100px;
+    left: 50vh;
+    right: 50vh;
+    position: absolute;
+}

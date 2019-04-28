@@ -5,6 +5,9 @@ import {
 import * as d3 from 'd3';
 import axios from 'axios';
 
+import './style/Home.css';
+// import './resources/stock.jpg'
+
 import { connect } from 'react-redux';
 
 class Home extends Component {
@@ -105,7 +108,8 @@ class Home extends Component {
         return (
             <React.Fragment>
                 <Grid columns={1} className="center aligned">
-                    <Grid.Row>
+                {/* <div name="bg"><img src={require("./resources/stock.jpg")} alt='' /></div> */}
+                    <Grid.Row style={{ position: 'absolute', top: 0, left: 0 }}>
                         <Grid.Column>
                             <div class="ui input"><input type="text" name="ticker" value={this.state.ticker} onChange={this.handleChange} placeholder="Enter Ticker Symbol"/></div>
                             <Button animated onClick={this.handleSubmit}>
@@ -118,7 +122,7 @@ class Home extends Component {
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            <svg style={{ border: '1px solid lightgray' }}></svg>
+                            <div class="graph"><svg style={{ border: '1px solid white' }} /></div>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
