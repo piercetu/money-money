@@ -80,7 +80,7 @@ class Home extends Component {
     }
 
     drawChart = data => {
-        var svgWidth = 800, svgHeight = 800;
+        var svgWidth = 600, svgHeight = 400;
         var margin = { top: 20, right: 20, bottom: 30, left: 50 };
         var width = svgWidth - margin.left - margin.right;
         var height = svgHeight - margin.top - margin.bottom;
@@ -124,7 +124,7 @@ class Home extends Component {
         g.append("path")
             .datum(data)
             .attr("fill", "none")
-            .attr("stroke", "orange")
+            .attr("stroke", "green")
             .attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
             .attr("stroke-width", 1.5)
@@ -151,9 +151,11 @@ class Home extends Component {
                                         onChange={this.handleChange}
                                         onFocus={this.handleFocus}
                                         onBlur={this.handleBlur}
-                                        placeholder="Enter Ticker Symbol" />
+                                        placeholder="Enter Ticker Symbol"
+                                        style={{ border: 'solid 1px black' }}
+                                         />
                                 </div>
-                                <Button animated onClick={this.handleSubmit}>
+                                <Button animated onClick={this.handleSubmit} style={{ backgroundColor: 'black', color: 'white' }}>
                                     <Button.Content visible>Predict</Button.Content>
                                     <Button.Content hidden>
                                         <Icon name='random' />
@@ -163,7 +165,7 @@ class Home extends Component {
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column>
-                                {this.state.loading ? <div class="ui active centered inline loader"></div> : <svg></svg>}
+                                {this.state.loading ? <div style={{ marginTop: 200 }} className="ui active centered inline loader"></div> : <svg></svg>}
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
